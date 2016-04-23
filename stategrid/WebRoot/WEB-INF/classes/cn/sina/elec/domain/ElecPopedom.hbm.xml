@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.sina.elec.domain.ElecPopedom" table="elec_popedom">
+		<!-- 联合主键的配置 -->
+		<composite-id>
+			<key-property name="mid" type="string" column="mid"></key-property>
+			<key-property name="pid" type="string" column="pid"></key-property>
+		</composite-id>
+		<property name="name" type="string" column="name"></property>
+		<property name="url" type="string" column="url"></property>
+		<property name="icon" type="string" column="icon"></property>
+		<property name="target" type="string" column="target"></property>
+		<property name="isParent" type="boolean" column="isParent"></property>
+		<property name="isMenu" type="boolean" column="isMenu"></property>
+	</class>
+</hibernate-mapping>

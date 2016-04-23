@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.sina.elec.domain.ElecExportFields" table="elec_exportfields">
+		<id name="belongTo" type="string" column="belongTo">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="expNameList" type="string" column="expNameList"></property>
+		<property name="expFieldName" type="string" column="expFieldName"></property>
+		<property name="noExpNameList" type="string" column="noExpNameList"></property>
+		<property name="noExpFieldName" type="string" column="noExpFieldName"></property>
+	</class>
+</hibernate-mapping>

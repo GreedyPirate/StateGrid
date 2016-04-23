@@ -1,0 +1,5 @@
+dao层为什么要这样设计:
+    每个domain类都会产生一张表,就要有对应的CRUD,可以看出这里操作都是共性的,
+    所以抽取出来一个泛型接口-CommonDao,对对其进行实现-CommonDaoImp,
+    每一个实体Dao都去继承CommonDao,实体Dao的实现类一定会实现实体Dao,
+    在CommonDaoImp中已经做了实现,所以说只要继承它就行了,继承它就相当于对实体Dao进行了实现

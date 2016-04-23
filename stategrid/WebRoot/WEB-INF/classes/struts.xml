@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+        <!-- 开发模式 -->
+		<constant name="struts.devMode" value="true"></constant>
+		<!-- ui主题，简单主题 -->
+		<constant name="struts.ui.theme" value="simple"></constant>
+		<!-- 修改struts2的后缀 改成.do-->
+		<constant name="struts.action.extension" value="do"></constant>
+		<!-- 上传文件的大小设置:20M -->
+		<constant name="struts.multipart.maxSize" value="20971520"></constant>
+
+		<!-- 系统 -->
+        <package name="system" namespace="/system" extends="json-default">
+        
+        		<!-- 自定义拦截器 -->
+        		<interceptors>
+        			<interceptor name="myExceptionInterceptor" class="cn.sina.elec.utils.ExceptionLogInterceptor"></interceptor>
+        			<interceptor-stack name="myDefaultStack">
+        				<interceptor-ref name="defaultStack"></interceptor-ref>
+        				<!-- 把自定义的拦截器追加到默认的拦截器栈 -->
+        				<interceptor-ref name="myExceptionInterceptor">
+        					<param name="excludeMethods">menuHome,title,left,change,loading,logout,alermStation,alermDevice,showMenu</param>
+        				</interceptor-ref>
+        			</interceptor-stack>
+        		</interceptors>
+        		<!-- 重新设置默认的拦截器栈 -->
+        		<default-interceptor-ref name="myDefaultStack"></default-interceptor-ref>
+        
+        		<!-- 全局转发 -->
+			    <global-results>
+			    	<result name="close">/close.jsp</result>
+			    	<result name="errorMsg">/errorMsg.jsp</result>
+			    </global-results>
+			    <global-exception-mappings>
+			    	<exception-mapping result="errorMsg" exception="java.lang.Exception"></exception-mapping>
+				</global-exception-mappings>
+				
+        		<!-- 测试 -->
+                <action name="*_elec" class="elecAction" method="{1}Elec">
+                        <result name="success">/system/textAdd.jsp</result>
+                </action>
+                
+                <!-- 左侧菜单 -->
+                <action name="elecMenuAction_*" class="elecMenuAction" method="{1}">
+                        <result name="menuHome">/WEB-INF/page/menu/home.jsp</result>
+                        
+                        <!-- 主页要加载的子页面 -->
+                        <result name="title">/WEB-INF/page/menu/title.jsp</result>
+                        <result name="left">/WEB-INF/page/menu/left.jsp</result>
+                        <result name="change">/WEB-INF/page/menu/change.jsp</result>
+                        <result name="loading">/WEB-INF/page/menu/loading.jsp</result>
+                        
+                        <!-- 登录错误页面 -->
+                        <result name="loginError">/WEB-INF/page/menu/index.jsp</result>
+                        
+                        <!-- 退出登录 -->
+						<result name="logout" type="redirect">/index.jsp</result>
+						
+                        <!-- 显示loading页面的两个iframe -->
+                        <result name="alermStation">/WEB-INF/page/menu/alermStation.jsp</result>
+                        <result name="alermDevice">/WEB-INF/page/menu/alermDevice.jsp</result>
+                        <result name="loadMenu" type="json"></result>
+                </action>
+                
+                <!-- 运行监控 -->
+                <action name="elecCommonMsgAction_*" class="elecCommonMsgAction" method="{1}">
+                	<result name="home">/WEB-INF/page/system/actingIndex.jsp</result>
+                	<result name="save" type="redirectAction">
+                		<param name="actionName">elecCommonMsgAction_home.do</param>
+                	</result>
+                	 <!-- 用于先div文本js特效 -->
+                    <result name="actingView">/WEB-INF/page/system/actingView.jsp</result>
+                </action>
+                
+                <!-- 数据字典 -->
+                <action name="elecSystemDDLAction_*" class="elecSystemDDLAction" method="{1}">
+                	<!-- 跳转到数据字典主页面 -->
+                	<result name="home">/WEB-INF/page/system/dictionaryIndex.jsp</result>
+                	<!-- 跳转到数据字典的编辑页面 -->
+                	<result name="edit">/WEB-INF/page/system/dictionaryEdit.jsp</result>
+                	<!-- 保存新增加的数据字典,并重定向到主页面 -->
+                	<result name="save" type="redirectAction">
+                		<param name="actionName">elecSystemDDLAction_home.do</param>
+                	</result>
+                </action>
+                
+                <!-- 用户管理 -->
+                <action name="elecUserAction_*" class="elecUserAction" method="{1}">
+                	<!-- 跳转到用户管理主界面 -->
+                	<result name="home">/WEB-INF/page/system/userIndex.jsp</result>
+                	<!-- 跳转到用户注册界面 -->
+                	<result name="add">/WEB-INF/page/system/userAdd.jsp</result>
+                	
+                	<!-- struts整合json插件包,package继承json-default,type为json -->
+                	<result name="findJctUnit" type="json">
+                		<!-- JSONResult的197行,有一个includeProperties属性可以注入,
+                			因为我们只需要ddlCode和ddlName,没必要把ElecSystemDDL的所有属性都封装到json中
+                			因为这个json是数组,也就是[{},{}..]的格式,所以要用正则+转义
+                		 -->
+                		<param name="includeProperties">\[\d+\]\.ddlCode,\[\d+\]\.ddlName</param>
+                	</result>
+                	
+                	<!-- 用户名校验 -->
+                	<result name="checkUser" type="json">
+                		<!-- root的意思:在栈顶查找getMessage方法,并将返回值放在栈顶 -->
+                		<param name="root">message</param>
+                		<param name="includeProperties">message</param>
+                	</result>
+                	<!-- 用户编辑 -->
+                	<result name="edit">/WEB-INF/page/system/userEdit.jsp</result>
+                	<!-- 如果是非管理员编辑,从定向到编辑页面 -->
+                	<result  name="redirectEdit" type="redirectAction">
+                		<!-- edit需要的参数有:userID,roleFlag 
+                			&可以用amp;的方式转义
+                			也可以用CDATA
+                		<param name="actionName">elecUserAction_edit?userID=${userID}&amp;roleFlag=${roleFlag}</param>
+                		-->
+                		<param name="actionName"><![CDATA[elecUserAction_edit.do?userID=${userID}&roleFlag=${roleFlag}]]></param>
+                	</result>
+                	<!-- 用户文件下载 -->
+                	<result name="download" type="stream">
+                		<param name="inputName">input</param>
+                		<!-- 这里使用ognl表达式会去Action类中找对应的get方法 -->
+                		<param name="contentType">${contentType}</param>
+                		<param name="bufferSize">${bufferSize}</param>
+                		<param name="contentDisposition">${contentDisposition}</param>
+                	</result>
+                	<!-- 错误跳转页面 -->
+                	<result name="input">/showStrutsError.jsp</result>
+                	<result name="delete" type="redirectAction">
+						<param name="actionName">elecUserAction_home.do?pageNO=${#request.pageNO}</param>
+					</result>
+					<!-- 分页 -->
+	               	<result name="list">/WEB-INF/page/system/userList.jsp</result>
+	               	<!-- 跳转到导入页面 -->
+	               	<result name="importPage">/WEB-INF/page/system/userImport.jsp</result>
+	               	<!-- 查看用户人数柱状图 -->
+	               	<result name="userChart">/WEB-INF/page/system/userReport.jsp</result>
+	               	<!-- 查看男女比例(FCF饼图) -->
+	               	<result name="FCFChart">/WEB-INF/page/system/FCFReport.jsp</result>
+                </action>
+                <!-- 角色管理 -->
+                <action name="elecRoleAction_*" class="elecRoleAction" method="{1}">
+                	<result name="home">/WEB-INF/page/system/roleIndex.jsp</result>
+                	<result name="edit">/WEB-INF/page/system/roleEdit.jsp</result>
+                	<result name="save" type="redirectAction">
+                		<param name="actionName">elecRoleAction_home.do</param>
+                	</result>
+                </action>
+                
+                <!-- 导出设置 -->
+                <action name="elecExportFieldsAction_*" class="elecExportFieldsAction" method="{1}">
+                	<result name="setExportFields">/WEB-INF/page/system/exportExcel.jsp</result>
+                </action>
+        </package>
+        
+        <!-- 资料图纸管理  extends system因为一些拦截器,全局结果集都要用到-->
+        <package name="datachart" namespace="/datachart" extends="system">
+        	<action name="elecFileUploadAction_*" class="elecFileUploadAction" method="{1}">
+        		<result name="home">/WEB-INF/page/dataChart/dataChartIndex.jsp</result>
+        		<result name="add">/WEB-INF/page/dataChart/dataChartAdd.jsp</result>
+        		<result name="save" type="redirectAction">
+        			<param name="actionName"><![CDATA[elecFileUploadAction_add.do?projId=${projId}&belongTo=${belongTo}]]></param>
+        		</result>
+        		<result name="addList">/WEB-INF/page/dataChart/dataChartAddList.jsp</result>
+        		<!-- 资料图纸文件下载 -->
+               	<result name="download" type="stream">
+               		<param name="inputName">input</param>
+               		<!-- 这里使用ognl表达式会去Action类中找对应的get方法 -->
+               		<param name="contentType">${contentType}</param>
+               		<param name="bufferSize">${bufferSize}</param>
+               		<param name="contentDisposition">${contentDisposition}</param>
+               	</result>
+               	<result name="luceneHome">/WEB-INF/page/dataChart/dataChartIndex.jsp</result>
+        	</action>
+        </package>
+</struts>

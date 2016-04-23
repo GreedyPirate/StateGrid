@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.sina.elec.domain.ELecUserFile" table="elec_User_File">
+		<id name="fileID" type="string" column="fileID">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="fileName" type="string" column="fileName"></property>
+		<property name="fileURL" type="string" column="fileURL"></property>
+		<property name="progressTime" type="timestamp" column="progressTime"></property>
+		<many-to-one name="elecUser" class="cn.sina.elec.domain.ElecUser"
+			cascade="save-update" column="userID"/>
+	</class>
+</hibernate-mapping>

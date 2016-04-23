@@ -1,0 +1,284 @@
+1.parent.document.getElementById("main").cols
+	表示该页面的父页面元素,也就是iframe的所在页面
+	
+2.我们要如何访问web-inf目录下的资源
+	通过一个action访问
+	
+3.struts UI标签:格式化时间
+	<s:date name="createDate" format="yyyy-MM-dd HH:mm:ss"/>
+
+4.整合ckeditor步骤
+	①.拷贝com.ckfinder.connector到src下
+	②.拷贝ckeditor和ckfinder到WebRoot下,删除多余的文件
+	③.将config.xml放到web-inf目录下
+		<enabled>true</enabled>,必须为true
+		<baseURL>/userfiles/</baseURL,上传的文件的存放位置,在项目路径下
+		在<url>/day20-StateGrid%BASE_URL%images/</url>中配置自己的项目名称
+	④.在web.xml中加入ckeditor配置,同时将struts2的拦截器路径设置为*.do	
+	⑤.WebRoot/ckeditor/config.js加以下配置
+		//配置默认配置
+		config.language = 'zh-cn'; //配置语言
+		config.uiColor = '#FFF'; //背景颜色
+		config.width = 400; //宽度
+		config.height = 400; //高度
+		config.skin = 'v2'; //编辑器皮肤样式
+		// 取消 “拖拽以改变尺寸”功能
+	    config.resize_enabled = false;
+		// 使用基础工具栏
+	    //config.toolbar = "Basic";
+		// 使用全能工具栏
+	    //config.toolbar = "Full";
+		//使用自定义工具栏
+	⑥.最重要的一点:ckfinder/ckfinder.html前要加../,因为struts的namespace会导致当问不到
+		config.filebrowserBrowseUrl = '../ckfinder/ckfinder.html'; 
+	⑦.CKEditor的使用:使用这个函数就行
+				<script type="text/javascript">
+					CKEDITOR.replace("stationRun",{height:180,width:1000});
+				</script>
+	⑧.如果想添加表情,在ckeditor/plugins/smiley/images
+
+5.在CommonDaoImp中,别名"o"已经写死了
+	"from "+klass.getSimpleName()+" o where 1=1"
+	
+6.hibernate的实体类为什么不用int要用Integer？
+	如果数据null,对象可以是null,但是int类型变量不可以...
+
+7.<s:iterator value="#request.typeList" var="type"></s:iterator>
+	没有var是值在ValueStack的栈顶,加var时在contextMap中
+
+8.hql语句的投影查询,看老师的总结		
+
+9.提交按钮的onclick事件return false表示不会提交
+	
+10.在做数据字典的提交时,我们遇到了两种情况的保存:
+	1.在原有的类型基础上增加新的值(add)
+	2.增加一种新的类型,并为其保存新的值(也可以只增加一种新的值),(new)
+	这是用<input type="hidden"/>来提交参数,并在Service层更加参数的不同做不同的处理
+	这里的add类型,采用了先(查)删除,然后插入所有表单数据的做法
+
+11.关于保存数据字典的参数keywordname:在js中的saveDict()中
+	/**没有选择类型*/
+	if(document.Form1.keyword.value=="jerrynew"){
+		document.Form2.keywordname.value=document.Form1.keywordname.value;
+	}else{
+		document.Form2.keywordname.value=document.Form1.keyword.value;
+	}
+	说明我们关心的只有keywordname,不管keyword的什么事了,我们只关心最终结果
+
+12.struts标签回显的原理:
+	提交时是把值赋给栈顶的模型驱动的属性的,显示时也是从里面取值的	
+	
+13.struts标签是不能嵌套使用,记住var属性的妙用,加var可以把值放到contextMap中,很好的解决了嵌套冲突的问题
+
+14.jQuery中是如何退出each循环的
+	return false 相当于 break
+	return true 相当于 continue
+
+15.文件上传的命名规范
+	private File[] uploads;//上传的文件
+	private String[] uploadsFileName;//上传的文件名
+	private String[] uploadsContentType;//上传的文件类型
+
+16.回显一般把对象放在栈顶
+
+17.close.jsp
+	opener.location.reload();//刷新父页面
+    window.close();//关闭当前窗口
+    那么iframe的父窗口是parent,被打开的父窗口是opener
+
+18.查询用户文件怎么按时间排序
+	1.自己改代码
+	2.用一个order-by配置就可以了
+		<set name="elecUserFiles" order-by="progressTime asc" />
+
+19.No result defined for action zqq.action.LoginAction and result input 
+	遇到这种情况可以自己定义一个input视图,并使用<s:fielderror/>和<s:actionerror/>
+
+20.struts的文件上文一定要小心默认文件大小为2M,超过这个值就会报上述错误
+
+21.添加标识的思想:
+	用户编辑和用户查看页面很类似,我们没有必要重复写两个,加一个标识,通过这个标识来判断哪些内容不显示
+
+22.Batch update returned unexpected row count from update [0]; actual row count: 0; expected: 1
+ 	userEdit.jsp:<s:hidden name="userID"></s:hidden>,不要加value,name就是从栈顶取值
+
+23.*****用户,角色,权限---经典设计模式******
+	1.用户和角色是多对多的关系,角色和权限也是多对多的关系	
+ 	2.能不能没有角色,直接用用户和权限建立多对多关系？
+ 		不能,如果每个用户都有100个权限,那么效率就很低
+ 	3.权限表的mid和pid对应zTree的父子节点
+ 	4.如何设置联合主键,以及联合主键在多对多关系表中的设置
+ 	5.多对多的中间表可以自己创建,也可以用hibernate的many-to-many创建
+ 
+	6.这个项目的数据库设计是:角色-权限表有我们自己创建表,用户-角色表由hibernate创建
+ 	
+24.boolean类型的get方法统一为:getxxx,不可以是isxxx
+ 	
+25.什么时候用ValueStack,什么时候用request转发呢？
+	要传递给页面的数据如果是模型的属性,就放栈顶
+	如果是业务数据就用request转发
+	
+26.如果查询条件为空,要写""而不是null
+	conditionalQuery("", null, orderBy);
+	
+27.递归,迭代,遍历的区别
+	递归(recursion) - 在函数内调用自身, 将复杂情况逐步转化成基本情况
+	迭代(iterate) - 按顺序访问线性结构中的每一项
+	遍历(traversal) - 按规则访问非线性结构中的每一项
+	
+28.页面中怎么让checkbox分组呢？
+		把checkbox放到div中,再把div的宽度设置为25%就可以了
+		
+29.***老师是如何做页面匹配复选框的***
+	选中系统管理员,让对应的权限被选中
+		先把所有的权限查出来,并在页面上显示
+		再把系统管理员的权限查询出来,和所有的权限做对比,只要匹配就设置标志
+
+30.刷新验证码,为了不让浏览器读缓存,要加时间戳
+	imageNumber.src = "${pageContext.request.contextPath}/image.jsp?timestamp="+new Date().getTime();
+
+31.Cookie中不能存中文,放进Cookie之前先编码,取的时候再解码
+	URLEncoder.encode(name, "UTF-8");
+	URLDecoder.decode(name, "UTF-8");
+
+32.zTree要用到的三个文件
+	jquery-1.4.2.js
+	css/zTreeStyle/zTreeStyle.css
+	jquery-ztree-2.5.js
+	
+33.如果把zTress的节点都写在nodes中
+	setting: {
+        root: {
+            nodes: [节点]
+        }
+    }
+            参数就只有setting
+    $("#menuTree").zTree(menu.setting);	
+	如果是放在json中:$("#menuTree").zTree(menu.setting, privilegeDate);
+	
+	
+34.关于4个路径
+	http://127.0.0.1:8080/projects/pages/newForm.jsp
+
+	则执行下面向行代码后打印出如下结果：
+	1、 System.out.println(request.getContextPath());
+	打印结果：/projects
+	
+	 2、System.out.println(request.getServletPath());
+	打印结果：/pages/newForm.jsp
+	
+	 3、 System.out.println(request.getRequestURI());
+	打印结果：/projects/pages/newForm.jsp
+	
+	 4、 System.out.println(request.getRealPath("/"));
+	 JSP servlet API提供了getRealPath(path)方法，返回给定虚拟路径的真实路径，如果转换错误，则返回null。
+	打印结果：C:\Tomcat5.0\webapps\projects\test
+	
+35.粗颗粒的权限控制的面试：
+	使用过滤器
+	在过滤器中定义放行的连接，因为不是每个操作都会存在Session
+	在过滤器中获取登录后存放的Session，如果Session不为空，则放行，即可以操作定义的业务功能，如果Session为空，则跳转到登录页面。
+	控制访问的系统必须要存在Session	
+	
+36.向页面传递json,使用插件包,把list放在栈顶就可以了	
+	
+37.过滤器和拦截器:
+	过滤器根据url-pattern过滤(包括了.jsp),而拦截器只拦截action,也就是.do
+	
+38.系统中的异常处理+日志备份
+	使用了struts2拦截器的思想:在这个拦截器中会对action类的方法调用,如果没有异常返回result,否则返回"errorMsg"作为result
+	再把异常写入到日志文件中(别忘了在log4j.properties的设置)
+
+39.复习struts2怎么自定义拦截器:
+	继承MethodFilterInterceptor
+	在struts.xml中的配置:
+		<!-- 自定义拦截器 -->
+		<interceptors>
+			<interceptor name="myExceptionInterceptor" class="cn.sina.elec.utils.ExceptionLogInterceptor"></interceptor>
+			<interceptor-stack name="myDefaultStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<!-- 把自定义的拦截器追加到默认的拦截器栈 -->
+				<interceptor-ref name="myExceptionInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<!-- 重新设置默认的拦截器栈 -->
+		<default-interceptor-ref name="myDefaultStack"></default-interceptor-ref>
+	
+	
+40.*********第六天需要掌握的三个知识点总结*************
+	 1.粗颗粒度权限控制
+	 	思想是用一个过滤器来拦截访问,判断是否存在session,有则放行.
+	 	同时有些访问没有session也要放行,比如登录,注销等操作
+	 	为什么不是struts拦截器？拦截器无法拦截.jsp的访问,只能拦截.do
+	 	
+	 2.系统异常的错误日志
+	 	思想是struts拦截器,只要执行了action而发生错误,就将result定义为"errorMsg",转发到错误页面
+	 	同时使用log记录错误,记得在log4j.properties加配置
+	
+	3.细颗粒度权限控制
+		有此需求的原因是:用户可以直接在地址栏上通过输入url来访问用户没有的权限的操作,比如用户本身没有系统管理权限,但是可以用过url访问
+		思想是在每一个方法上加权限注释,比如是"ec","ea",那么在访问这个方法时,我们可以获取到用户的角色ID,
+		roleId,mid,pid,正好是角色权限表可以是查询的,只要当前用户没有这些权限就不行
+		问题:为什么不直接用方法的权限注释和用户在session中保存的权限作对比,而是要去查询数据库呢？
+			这样做存在安全风险,比如小明的账号被盗了,他会去联系管理员,管理员只要把数据库中的权限修改就好了,
+			但是如果和session中权限对比,账号被盗后是无法做修改的
+
+41.如何获取spring容器中的bean
+		//获取WebApplicationContext
+		WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(
+									request.getSession().getServletContext());
+		//获取Service
+		ElecRolePopedomService service = (ElecRolePopedomService) context.getBean
+									(ElecRolePopedomService.ELEC_SERVICE);
+	
+42.axis2从wsdl生产的java类说明	
+	我自己写的接口:List<ElecSystemDDL> getSystemDDL(String keyword);
+	GetSystemDDL:把参数封装成类了
+		
+	GetSystemDDLResponse:把返回值封装成类了
+	
+43.hibernate二级缓存的应用:
+	我们需要将用户管理等模块中的数据字典ddlCode转换成ddlName,而且这种查询然后转换的操作是很频繁的,
+	那么我们可以把查询出来的数据放入到二级缓存中去
+	
+44.除了二级缓存的优化,我们还可以不使用hibernate的hql投影查询,直接使用sql
+	原因,我们查询用户,还要根据用户的ddlcode查询出对应的ddlName,为什么不直接用一条sql语句查询出来呢？
+	SELECT u.`UserID`,u.`UserName`,u.`LogonName`,s.`ddlName`,u.`ContactTel`,u.`OnDutyDate` 
+	FROM elec_user u 
+	LEFT JOIN elec_systemddl s 
+	ON  u.`SexID` = s.`seqID`
+	
+45.关于使用sql查询,一定要仔细复习下@see cn.sina.elec.dao.imp.ElecFileUploadDaoImp中的做法
+
+46.复习<s:iterator value="#request.list" status="st">,status的用法
+
+47.复习jQuery中find方法的使用
+
+48.打开jar文件的方式:cmd下 java -jar 名称
+
+49.lucene工作原理
+	索引库为:目录区				数据区
+			1.java			java是一门面向对象的编程语言
+			2.spring		spring是一个开源的框架
+	假设我现在搜索java,那么我找到的目录区的id是1,这个id也是"数据库的主键ID",我们再根据这个主键ID去查数据库
+	所以说lucene最大的作用就是帮我们快速的找到主键ID,我们查询出来的数据最后还是查的数据库
+	那么为什么还有把数据存在lucene索引库的数据区呢？为了分词,为了建立目录区
+	
+50.使用lucene中出现的问题
+	建议索引库的字段名,和从索引库中搜索的字段名一定要一致,
+	错误:Column 'seqID' in where clause is ambiguous
+		seqID含义不清晰,是因为多表查询的时候我没有加表的别名
+	关于设置文字高亮,记得要设置从数据库里查询出来的数据
+	
+51.总结下设置中文乱码:
+	1.用一个过滤器
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+	2.如果页面中JS代码使用：userName = encodeURI(userName,"UTF-8");
+						userName = encodeURI(userName,"UTF-8");
+		服务器端：使用userName = URLDecoder.decode(userName, "UTF-8");
+	3.userName = new String(userName.getBytes("iso-8859-1"),"UTF-8");	
+
+52.excel最大支持的行数为65536,所以用分页可以支持大批量数据的导入
+
+53.相对路径指的是相对于项目的路径

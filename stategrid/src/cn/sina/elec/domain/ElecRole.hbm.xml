@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.sina.elec.domain.ElecRole" table="elec_role">
+	
+		<id name="roleID" type="string" column="roleID">
+		 <generator class="assigned"></generator>
+		</id>
+		<property name="roleName" type="string" column="roleName"></property>
+		<set name="elecUsers" table="elec_user_role">
+			<key column="roleID"></key>
+			<many-to-many class="cn.sina.elec.domain.ElecUser" column="userID"></many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>
