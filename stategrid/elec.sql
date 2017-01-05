@@ -30,6 +30,8 @@ CREATE TABLE `elec_commonmsg` (
 
 /*Data for the table `elec_commonmsg` */
 
+insert  into `elec_commonmsg`(`comID`,`stationRun`,`devRun`,`createDate`) values ('4028818759645d5901596493672e0004','1','2','2017-01-03 21:50:33');
+
 /*Table structure for table `elec_commonmsg_content` */
 
 DROP TABLE IF EXISTS `elec_commonmsg_content`;
@@ -43,6 +45,8 @@ CREATE TABLE `elec_commonmsg_content` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `elec_commonmsg_content` */
+
+insert  into `elec_commonmsg_content`(`comID`,`type`,`content`,`orderby`) values ('40288187596497c601596498837e0001','1','<p>\r\n	《长城》</p>\r\n',1),('40288187596497c60159649883820002','2','<p>\r\n	《新中国建立》</p>\r\n',1);
 
 /*Table structure for table `elec_exportfields` */
 
@@ -119,7 +123,7 @@ insert  into `elec_role`(`roleID`,`roleName`) values ('1','系统管理员'),('2
 DROP TABLE IF EXISTS `elec_role_popedom`;
 
 CREATE TABLE `elec_role_popedom` (
-  `roleID` varchar(32) NOT NULL,
+  `roleID` varchar(32) NOT NULL DEFAULT '~',
   `mid` varchar(32) NOT NULL,
   `pid` varchar(32) NOT NULL,
   PRIMARY KEY (`roleID`,`mid`,`pid`)
@@ -127,7 +131,7 @@ CREATE TABLE `elec_role_popedom` (
 
 /*Data for the table `elec_role_popedom` */
 
-insert  into `elec_role_popedom`(`roleID`,`mid`,`pid`) values ('1','aa','0'),('1','ab','aa'),('1','ac','aa'),('1','ad','aa'),('1','ae','0'),('1','af','ae'),('1','ag','a0'),('1','ah','ag'),('1','ai','ag'),('1','aj','ag'),('1','ak','0'),('1','al','ak'),('1','am','a0'),('1','an','am'),('1','ao','am'),('1','ap','am'),('1','aq','am'),('1','ar','a0'),('1','as','ar'),('1','at','ar'),('1','au','ar'),('1','av','ar'),('1','aw','ar'),('1','ba','0'),('1','bb','ba'),('1','be','ba'),('1','bf','ba'),('1','bg','ba'),('1','bh','ba'),('1','bi','ba'),('1','bj','ba'),('1','ca','0'),('1','cb','ca'),('1','cc','ca'),('1','da','0'),('1','db','da'),('1','dc','da'),('1','ea','0'),('1','eb','ea'),('1','ec','ea'),('1','fa','0'),('1','fb','fa'),('1','fc','fa'),('1','fd','fa'),('1','fe','fa'),('1','ff','fa'),('1','fg','fa'),('1','fh','fa'),('1','fi','fa'),('1','fj','fa'),('1','fk','fa'),('1','fl','fa'),('1','ga','0'),('1','gb','ga'),('1','gc','ga'),('1','ha','0'),('1','hb','ha'),('1','hc','ha'),('1','hd','ha'),('1','he','ha'),('1','ia','0'),('1','ib','ia'),('1','ic','ia'),('1','id','ia'),('1','ie','ia'),('1','if','ia'),('1','ig','ia'),('1','ja','0'),('1','jb','ja'),('1','jc','ja'),('1','jd','ja'),('1','je','ja'),('1','jf','ja'),('1','jg','ja'),('1','jh','ja'),('1','ji','ja'),('1','jj','ja'),('1','jk','ja');
+insert  into `elec_role_popedom`(`roleID`,`mid`,`pid`) values ('1','aa','0'),('1','ab','aa'),('1','ac','aa'),('1','ad','aa'),('1','ae','0'),('1','af','ae'),('1','ag','a0'),('1','ah','ag'),('1','ai','ag'),('1','aj','ag'),('1','ak','0'),('1','al','ak'),('1','am','a0'),('1','an','am'),('1','ao','am'),('1','ap','am'),('1','aq','am'),('1','ar','a0'),('1','as','ar'),('1','at','ar'),('1','au','ar'),('1','av','ar'),('1','aw','ar'),('1','ba','0'),('1','bb','ba'),('1','be','ba'),('1','bf','ba'),('1','bg','ba'),('1','bh','ba'),('1','bi','ba'),('1','bj','ba'),('1','ca','0'),('1','cb','ca'),('1','cc','ca'),('1','da','0'),('1','db','da'),('1','dc','da'),('1','ea','0'),('1','eb','ea'),('1','ec','ea'),('1','fa','0'),('1','fb','fa'),('1','fc','fa'),('1','fd','fa'),('1','fe','fa'),('1','ff','fa'),('1','fg','fa'),('1','fh','fa'),('1','fi','fa'),('1','fj','fa'),('1','fk','fa'),('1','fl','fa'),('1','ga','0'),('1','gb','ga'),('1','gc','ga'),('1','ha','0'),('1','hb','ha'),('1','hc','ha'),('1','hd','ha'),('1','he','ha'),('1','ia','0'),('1','ib','ia'),('1','ic','ia'),('1','id','ia'),('1','ie','ia'),('1','if','ia'),('1','ig','ia'),('1','ja','0'),('1','jb','ja'),('1','jc','ja'),('1','jd','ja'),('1','je','ja'),('1','jf','ja'),('1','jg','ja'),('1','jh','ja'),('1','ji','ja'),('1','jj','ja'),('1','jk','ja'),('2','aa','0'),('2','ab','aa'),('2','ac','aa'),('2','ad','aa'),('2','ae','0'),('2','af','ae'),('2','ag','a0'),('2','ah','ag'),('2','ai','ag'),('2','aj','ag'),('2','ak','0'),('2','al','ak'),('2','am','a0'),('2','an','am'),('2','ao','am'),('2','ap','am'),('2','aq','am'),('2','ar','a0'),('2','as','ar'),('2','at','ar'),('2','au','ar'),('2','av','ar'),('2','aw','ar'),('2','ba','0'),('2','bb','ba'),('2','be','ba'),('2','bf','ba'),('2','bg','ba'),('2','bh','ba'),('2','bi','ba'),('3','aa','0'),('3','ab','aa'),('3','ac','aa'),('3','ad','aa'),('3','ae','0'),('3','af','ae'),('3','ag','a0'),('3','ah','ag'),('3','ai','ag'),('3','aj','ag'),('3','ak','0'),('3','al','ak'),('3','bj','ba'),('3','ca','0'),('3','cb','ca'),('3','cc','ca'),('3','da','0'),('3','db','da'),('3','dc','da'),('3','ea','0'),('3','eb','ea'),('3','ec','ea'),('3','fa','0'),('3','fb','fa'),('3','fc','fa'),('3','fd','fa'),('3','fe','fa'),('3','ff','fa'),('3','fg','fa'),('3','fh','fa'),('3','fi','fa'),('3','fj','fa'),('3','fk','fa'),('3','fl','fa'),('3','ga','0'),('3','gb','ga'),('3','gc','ga'),('3','ha','0'),('3','hb','ha'),('3','hc','ha'),('3','hd','ha'),('3','he','ha'),('3','ia','0'),('3','ib','ia'),('3','ic','ia'),('3','id','ia'),('3','ie','ia'),('3','if','ia'),('3','ig','ia'),('3','ja','0'),('3','jb','ja'),('3','jc','ja'),('3','jd','ja'),('3','je','ja'),('3','jf','ja'),('3','jg','ja'),('3','jh','ja'),('3','ji','ja'),('3','jj','ja'),('3','jk','ja');
 
 /*Table structure for table `elec_systemddl` */
 
@@ -186,7 +190,7 @@ CREATE TABLE `elec_user` (
 
 /*Data for the table `elec_user` */
 
-insert  into `elec_user`(`userID`,`jctID`,`userName`,`logonName`,`logonPwd`,`sexID`,`birthday`,`address`,`contactTel`,`email`,`mobile`,`isDuty`,`postID`,`onDutyDate`,`offDutyDate`,`remark`,`jctUnitID`) values ('402881e43d8b1e28013d8b8ae5a10001','1','超级管理员','admin','1234','1',NULL,NULL,NULL,NULL,NULL,'1','1',NULL,NULL,NULL,NULL),('402881e43d8b1e28013d8b8ae5a10154','2','豆豆','doudou','1234','2',NULL,NULL,NULL,NULL,NULL,'1','1',NULL,NULL,NULL,NULL);
+insert  into `elec_user`(`userID`,`jctID`,`userName`,`logonName`,`logonPwd`,`sexID`,`birthday`,`address`,`contactTel`,`email`,`mobile`,`isDuty`,`postID`,`onDutyDate`,`offDutyDate`,`remark`,`jctUnitID`) values ('402881e43d8b1e28013d8b8a88a10154','3','杰杰','jay','1234','1','2017-01-05 21:41:06','龙锦苑','13999778487','1qawq1@163.com','48657897','1','1','2017-01-05 00:00:00',NULL,NULL,'1'),('402881e43d8b1e28013d8b8ae5a10001','1','超级管理员','admin','1234','1','2017-01-03 00:00:00','龙锦苑','13999778487','1qawq1@163.com','48657897','1','1','2017-01-05 00:00:00',NULL,'','1'),('402881e43d8b1e28013d8b8ae5a10154','2','豆豆','doudou','1234','2',NULL,'龙锦苑','13999778487','1qawq1@163.com','48657897','1','1',NULL,NULL,NULL,'1');
 
 /*Table structure for table `elec_user_file` */
 
@@ -221,7 +225,7 @@ CREATE TABLE `elec_user_role` (
 
 /*Data for the table `elec_user_role` */
 
-insert  into `elec_user_role`(`userID`,`roleID`) values ('402881e43d8b1e28013d8b8ae5a10001','1'),('402881e43d8b1e28013d8b8ae5a10154','1');
+insert  into `elec_user_role`(`userID`,`roleID`) values ('402881e43d8b1e28013d8b8ae5a10001','1'),('402881e43d8b1e28013d8b8ae5a10154','1'),('402881e43d8b1e28013d8b8a88a10154','2'),('402881e43d8b1e28013d8b8a88a10154','3');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -1,6 +1,7 @@
 package cn.sina.elec.utils;
 
 import java.lang.reflect.Method;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -13,8 +14,6 @@ import org.apache.struts2.StrutsStatics;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import cn.sina.elec.dao.ElecRolePopedomDao;
-import cn.sina.elec.domain.ElecRolePopedom;
 import cn.sina.elec.domain.ElecUser;
 import cn.sina.elec.service.ElecRolePopedomService;
 
@@ -54,7 +53,7 @@ public class ExceptionLogInterceptor extends MethodFilterInterceptor{
 					/**  
 					 * 处理异常  
 					 */
-					String errorMsg = "出现错误信息，请查看日志！";
+					String errorMsg = "出现错误信息，请查看日志！\n" + DateUtils.formattoString(new Date());
 					/*//通过instanceof判断到底是什么异常类型   
 					if (e instanceof RuntimeException) {
 						//未知的运行时异常   

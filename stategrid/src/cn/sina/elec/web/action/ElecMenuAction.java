@@ -72,7 +72,7 @@ public class ElecMenuAction extends BaseAction<Menu> {
     	}else{
     		//进行密码校验(md5加密)
     		MD5keyBean bean = new MD5keyBean();
-    		//password = bean.getkeyBeanofStr(password); 
+    		//password = bean.getkeyBeanofStr(password); 测试方便一点
     		if(!password.equals(elecUser.getLogonPwd())){
     			this.addActionError("密码输入错误");
     			return "loginError";
