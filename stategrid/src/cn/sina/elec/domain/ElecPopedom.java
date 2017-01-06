@@ -108,6 +108,11 @@ public class ElecPopedom implements Serializable{
 	public void setIsMenu(boolean isMenu) {
 		this.isMenu = isMenu;
 	}
-	
+	@Override
+	public String toString() {
+		return "ElecPopedom [mid=" + mid + ", pid=" + pid + ", name=" + name
+				+ ", url=" + url + ", icon=" + icon + ", target=" + target
+				+ ", isParent=" + isParent + ", isMenu=" + isMenu + "]";
+	}
 	
 }

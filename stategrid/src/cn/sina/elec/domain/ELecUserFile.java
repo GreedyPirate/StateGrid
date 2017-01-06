@@ -48,4 +48,11 @@ public class ELecUserFile implements Serializable{
 	public void setProgressTime(Date progressTime) {
 		this.progressTime = progressTime;
 	}
+	@Override
+	public String toString() {
+		return "ELecUserFile [fileID=" + fileID + ", userID=" + userID
+				+ ", fileName=" + fileName + ", fileURL=" + fileURL
+				+ ", progressTime=" + progressTime + "]";
+	}
+	
 }

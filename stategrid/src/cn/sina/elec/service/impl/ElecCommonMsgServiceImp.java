@@ -44,7 +44,8 @@ public class ElecCommonMsgServiceImp implements ElecCommonMsgService {
 			Map<String, String> stationOrderby = new LinkedHashMap<String, String>();
 			stationOrderby.put("o.orderby", "asc");
 			List<ElecCommonMsgContent> stationList = elecCommonMsgContentDao.conditionalQuery(stationCondition, stationParams, stationOrderby);
-			//获取返回的数据（拼装之后）
+			/*获取返回的数据（拼装之后）
+			 * modified by yangjie on 2017年1月5日 都把最新的数据删了，为什么要拼装
 			String stationContent = "";
 			if(stationList!=null && stationList.size()>0){
 				for(ElecCommonMsgContent elecCommonMsgContent:stationList){
@@ -53,7 +54,10 @@ public class ElecCommonMsgServiceImp implements ElecCommonMsgService {
 				}
 			}
 			//将数据赋值给页面的属性（站点运行情况）
-			commonMsg.setStationRun(stationContent);
+			*/
+			if(stationList != null && stationList.size() > 0){
+				commonMsg.setStationRun(stationList.get(0).getContent());
+			}
 			/**********************************************************************************/
 			//以类型作为条件，按照显示顺序升序排列，查询站点运行情况的数据
 			String devCondition = " and o.type=?";
@@ -61,7 +65,7 @@ public class ElecCommonMsgServiceImp implements ElecCommonMsgService {
 			Map<String, String> devOrderby = new LinkedHashMap<String, String>();
 			devOrderby.put("o.orderby", "asc");
 			List<ElecCommonMsgContent> devList = elecCommonMsgContentDao.conditionalQuery(devCondition, devParams, devOrderby);
-			//获取返回的数据（拼装之后）
+			/*获取返回的数据（拼装之后） 理由同上
 			String devContent = "";
 			if(devList!=null && devList.size()>0){
 				for(ElecCommonMsgContent elecCommonMsgContent:devList){
@@ -69,8 +73,11 @@ public class ElecCommonMsgServiceImp implements ElecCommonMsgService {
 					devContent += content;
 				}
 			}
-			//将数据赋值给页面的属性（设备运行情况）
-			commonMsg.setDevRun(devContent);
+			//将数据赋值给页面的属性（设备运行情况）*/
+			if(devList != null && devList.size() > 0){
+				commonMsg.setDevRun(devList.get(0).getContent());
+			}
+			
 			/**********************************************end**********************************************************/
 		}
 		return commonMsg;

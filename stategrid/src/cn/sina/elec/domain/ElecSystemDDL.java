@@ -1,6 +1,7 @@
 package cn.sina.elec.domain;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * SeqID INT NOT NULL,          #主键ID(自增长)
@@ -73,6 +74,11 @@ public class ElecSystemDDL implements Serializable{
 	}
 	public void setItemname(String[] itemname) {
 		this.itemname = itemname;
+	}
+	@Override
+	public String toString() {
+		return "ElecSystemDDL [seqID=" + seqID + ", keyword=" + keyword
+				+ ", ddlCode=" + ddlCode + ", ddlName=" + ddlName + "]";
 	}
 	
 }

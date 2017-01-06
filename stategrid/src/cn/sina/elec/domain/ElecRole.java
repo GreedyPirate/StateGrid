@@ -1,6 +1,7 @@
 package cn.sina.elec.domain;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 /**
@@ -64,5 +65,8 @@ public class ElecRole implements Serializable{
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
-	
+	@Override
+	public String toString() {
+		return "ElecRole [roleID=" + roleID + ", roleName=" + roleName + "]";
+	}
 }

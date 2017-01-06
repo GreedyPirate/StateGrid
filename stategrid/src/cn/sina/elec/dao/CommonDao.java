@@ -33,4 +33,6 @@ public interface CommonDao<T> {
     //使用指定的字段来查询
 	List<T> excelQueryByField(String condition, Object[] params,Map<String, String> orderBy, String field);
 
+	//使用原生Sql查询
+	List<T> nativeSql(String condition);
 }

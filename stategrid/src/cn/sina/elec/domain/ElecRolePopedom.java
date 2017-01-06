@@ -35,5 +35,9 @@ public class ElecRolePopedom implements Serializable{
 	public void setPid(String pid) {
 		this.pid = pid;
 	}
-	
+	@Override
+	public String toString() {
+		return "ElecRolePopedom [roleID=" + roleID + ", mid=" + mid + ", pid="
+				+ pid + "]";
+	}
 }

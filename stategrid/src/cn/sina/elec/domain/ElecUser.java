@@ -3,6 +3,7 @@ package cn.sina.elec.domain;
 import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -368,6 +369,26 @@ public class ElecUser implements Serializable{
 
 	public void setElecUserFiles(Set<ELecUserFile> elecUserFiles) {
 		this.elecUserFiles = elecUserFiles;
+	}
+
+	@Override
+	public String toString() {
+		return "ElecUser [userID=" + userID + ", jctID=" + jctID
+				+ ", jctUnitID=" + jctUnitID + ", userName=" + userName
+				+ ", logonName=" + logonName + ", logonPwd=" + logonPwd
+				+ ", sexID=" + sexID + ", birthday=" + birthday + ", address="
+				+ address + ", contactTel=" + contactTel + ", email=" + email
+				+ ", mobile=" + mobile + ", isDuty=" + isDuty + ", postID="
+				+ postID + ", onDutyDate=" + onDutyDate + ", offDutyDate="
+				+ offDutyDate + ", remark=" + remark + ", onDutyDateBegin="
+				+ onDutyDateBegin + ", onDutyDateEnd=" + onDutyDateEnd
+				+ ", message=" + message + ", uploads="
+				+ Arrays.toString(uploads) + ", uploadsFileName="
+				+ Arrays.toString(uploadsFileName) + ", uploadsContentType="
+				+ Arrays.toString(uploadsContentType) + ", fileID=" + fileID
+				+ ", input=" + input + ", viewflag=" + viewflag + ", md5pwd="
+				+ md5pwd + ", roleUser=" + roleUser + ", roleFlag=" + roleFlag
+				+ ", file=" + file + "]";
 	}
 
 }

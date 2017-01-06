@@ -3,6 +3,7 @@ package cn.sina.elec.domain;
 import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * CREATE TABLE Elec_FileUpload(
@@ -112,6 +113,13 @@ public class ElecFileUpload implements Serializable{
 	}
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+	@Override
+	public String toString() {
+		return "ElecFileUpload [seqID=" + seqID + ", projId=" + projId
+				+ ", belongTo=" + belongTo + ", fileName=" + fileName
+				+ ", fileURL=" + fileURL + ", progressTime=" + progressTime
+				+ ", comment=" + comment + "]";
 	}
 	
 }

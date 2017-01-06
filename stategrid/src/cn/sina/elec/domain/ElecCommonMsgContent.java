@@ -41,5 +41,10 @@ public class ElecCommonMsgContent implements Serializable{
 	public void setOrderby(Integer orderby) {
 		this.orderby = orderby;
 	}
+	@Override
+	public String toString() {
+		return "ElecCommonMsgContent [comID=" + comID + ", type=" + type
+				+ ", content=" + content + ", orderby=" + orderby + "]";
+	}
 	
 }

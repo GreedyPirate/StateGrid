@@ -241,4 +241,17 @@ public class CommonDaoImp<T> extends HibernateDaoSupport implements CommonDao<T>
 		});
         return list;
 	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<T> nativeSql(final String condition) {
+		List<T> list = (List<T>) this.getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				Query query = session.createSQLQuery(condition);
+				return query.list();
+			}
+		});
+		return list;
+	}
 }

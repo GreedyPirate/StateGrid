@@ -50,5 +50,12 @@ public class ElecExportFields implements Serializable{
 	public void setNoExpFieldName(String noExpFieldName) {
 		this.noExpFieldName = noExpFieldName;
 	}
+	@Override
+	public String toString() {
+		return "ElecExportFields [belongTo=" + belongTo + ", expNameList="
+				+ expNameList + ", expFieldName=" + expFieldName
+				+ ", noExpNameList=" + noExpNameList + ", noExpFieldName="
+				+ noExpFieldName + "]";
+	}
 	
 }

@@ -45,5 +45,10 @@ public class ElecCommonMsg implements Serializable{
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+	@Override
+	public String toString() {
+		return "ElecCommonMsg [comID=" + comID + ", stationRun=" + stationRun
+				+ ", devRun=" + devRun + ", createDate=" + createDate + "]";
+	}
 	
 }
